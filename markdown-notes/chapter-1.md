@@ -36,7 +36,7 @@
 
 ### ATmega16 Architecture Overview
 
-<div align = center><img src = "../assets/ch1-2.jpg"></div>
+<div align = center><img height = 650 src = "../assets/ch1-2.jpg"></div>
 
 - a timer subsystem
 - a communication system
