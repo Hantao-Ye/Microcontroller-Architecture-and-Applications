@@ -6,6 +6,7 @@
         "EEPROM",
         "Neumann",
         "Tmega",
-        "USART"
+        "USART",
+        "XTAL"
     ]
 }
