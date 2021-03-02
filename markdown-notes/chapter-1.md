@@ -46,3 +46,12 @@
 
 #### Pins
 
+- four 8-bit ports
+- connections for power supplies (VCC/GND/AVCC/AREF)
+- external time base input pins (XTAL1/XTAL2)
+- processor reset
+
+[^1]: 
+    **RISC**, acronym for Reduced-instruction-set Computing, information processing using any of a family of microprocessors that are designed to execute computing tasks with the simplest instructions in the shortest amount of time possible. RISC is the opposite of **CISC** (Complex-instruction-set Computing).
+[^2]:
+    **Harvard architecture** is a computer architecture with separate storage and signal pathways for instructions and data. It contrasts with the **von Neumann architecture**, where program instructions and data share the same memory and pathways.
