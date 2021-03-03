@@ -79,14 +79,44 @@ Static random-access memory (static RAM or **SRAM**) is a type of random-access 
 
 ### Programmable Lock Bits
 
-- six memory lock bits
-- Atmel STK500 programming board
+- six memory lock bits for memory security from tampering
+- Atmel STK500 programming board used to program lock bits
 
 ## 1-4 Port System
+
+ATmega16 is equipped with **four** 8-bit general-purpose, digital I/O ports designated PORTA, PORTB, PORTC, and PORTD. And each port has **8 data pins** and is bi-directional.
+
+<div align = center><img src = "../assets/ch1-3.png"></div>
+
+### Data Register
+
+PORTx, used to write output data to the port
+
+### Data Direction Register
+
+DDRx, used to set specific port pin to either output (1) or input (0)
+
+### Input Pin Address
+
+PINx, used to read input data from the port
+
+<div align = center><img height = 300 src = "../assets/ch1-4.png"></div>
+
+### Port Pin Configuration
+
+| DDRxn | PORTxn |  I/O   |                 Comment                 |
+| :---: | :----: | :----: | :-------------------------------------: |
+|   0   |   0    | input  |            Tri-state (Hi-Z)             |
+|   0   |   1    | input  | source current if externally pulled low |
+|   1   |   0    | output |            Output Low (Sink)            |
+|   1   |   1    | output |          Output High (Source)           |
+
+- x: port designator (A, B, C, D)
+- n: pin designator (0 - 7)
 
 [^1]: 
     **RISC**, acronym for Reduced-instruction-set Computing, information processing using any of a family of microprocessors that are designed to execute computing tasks with the simplest instructions in the shortest amount of time possible. RISC is the opposite of **CISC** (Complex-instruction-set Computing).
 [^2]:
     **Harvard architecture** is a computer architecture with separate storage and signal pathways for instructions and data. It contrasts with the **von Neumann architecture**, where program instructions and data share the same memory and pathways.
 [^3]:
-    The term static differentiates **SRAM** from **DRAM** (dynamic random-access memory) which must be periodically refreshed. SRAM is faster and more expensive than DRAM; it is typically used for the cache and internal registers of a CPU while DRAM is used for a computer's main memory.
+    The term static differentiates **SRAM** from **DRAM** (dynamic random-access memory) which must be **periodically** refreshed. SRAM is faster and more expensive than DRAM; it is typically used for the cache and internal registers of a CPU while DRAM is used for a computer's main memory.
