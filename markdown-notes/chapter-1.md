@@ -67,7 +67,8 @@
 
 - 512 bytes
 - 100 000 write/erase cycles
-- stores and recalls variables during program execution
+- logs system malfunctions and fault data during program execution
+- stores data must be retained during a power failure but might need to be changed periodically
 
 ### SRAM
 
