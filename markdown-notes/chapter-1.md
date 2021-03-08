@@ -115,9 +115,64 @@ PINx, used to read input data from the port
 - x: port designator (A, B, C, D)
 - n: pin designator (0 - 7)
 
+#### Input Pin
+
+- the pull-up resistor is **activated** when PORTxn is written **logic one**
+- the pull-up resistor is **off** when PORTxn is written **logic zero** or configure the pin as the **output mode**
+
+#### Output Pin
+
+- the port is driven **high** when PORTxn is written **logic one**
+- the port is drive **low** when PORTxn is written **logic zero**
+
+## 1-5 Internal Subsystems
+
+### Time Base
+
+Time base, also called as the clock, controls the speed at which a micro controller sequences through accomplishing instruction related operations
+
+- User-selectable resistor capacitor time base is used **internally**
+- **External time sources** is used to increase accuracy and stability
+- Fixed clock operating frequency of **1, 2, 4 or 8** MHz
+
+### Timing Subsystem
+
+The ATmega16 is equipped with **two** 8-bit timer/counters and **one** 16-bit timer/counter
+
+- generate a precision output signal
+- measure the characteristics of an incoming digital signal
+- count external events
+
+### Pulse Width Modulation Channels
+
+The ATmega16 is equipped with **four** PWM channels, allows the user to generate a wide variety of PWM signals
+
+### Serial Communications
+
+Three serial communication subsystems of ATmega16 
+
+- Universal Synchronous and Asynchronous Serial Receiver and Transmitter(**USART**)
+- Serial Peripheral Interface (**SPI**)
+- Two-Wire Serial Interface (**TWI**)
+
+> All of three are **serial transmission** of data
+
+### Analog-to-Digital Converter
+
+The ATmega16 is equipped with an **eight-channel** ADC subsystem, which has **10-bit** resolution which means that an analog voltage between 0 and 5V will be encoded into one of $2^{10}=1024$ binary representations.
+
+### Interrupts
+
+The ATmega16 is equipped with a complement of **21 interrupt sources**[^4]
+
+- **three of the interrupts** are provided for external interrupts
+- **remaining 18 interrupts** support the efficient operation of peripheral subsystems
+
 [^1]: 
     **RISC**, acronym for Reduced-instruction-set Computing, information processing using any of a family of microprocessors that are designed to execute computing tasks with the simplest instructions in the shortest amount of time possible. RISC is the opposite of **CISC** (Complex-instruction-set Computing).
 [^2]:
     **Harvard architecture** is a computer architecture with separate storage and signal pathways for instructions and data. It contrasts with the **von Neumann architecture**, where program instructions and data share the same memory and pathways.
 [^3]:
     The term static differentiates **SRAM** from **DRAM** (dynamic random-access memory) which must be **periodically** refreshed. SRAM is faster and more expensive than DRAM; it is typically used for the cache and internal registers of a CPU while DRAM is used for a computer's main memory.
+[^4]:
+    When these higher-priority events occur, the micro controller must temporarily suspend normal operation and execute event specific actions, called an **interrupt service routine**.
