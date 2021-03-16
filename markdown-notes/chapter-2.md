@@ -73,7 +73,7 @@ There are mainly **four** basic pieces in USART
 - the clock generator
 - the transmission hardware
 - the receiver hardware
-- three control registers (USARTA, USARTB and USARTC)
+- three control registers (UCSRA, UCSRB and UCSRC)
 
 #### Clock Generator
 
@@ -192,7 +192,7 @@ UDR = data; // start sending character
 
 ```C
 unsigned char data;
-daaa = UDR; // clear UDR
+data = UDR; // clear UDR
 ```
 
 ### System Operation and Programming
@@ -204,19 +204,30 @@ There are 3 main tasks in using the serial port
 ```flow
 st=>start: Begin
 op1=>operation: Set USART communication parameters
-op2=>operation: Set USART for asynchronous mode
-op3=>operation: Set baud rate
-op4=>operation: Enable transmitter and receiver
+op2=>operation: Enable transmitter and/or receiver
+op3=>operation: Set USART for asynchronous mode
+op4=>operation: Set baud rate
 e=>end: End
 st->op1->op2->op3->op4->e
+```
+
+```C
+void USART_init(void){
+    UCSRA = 0x00; // control register initialization
+    UCSRB = 0x08; // enable transmitter
+    UCSRC = 0x86; // async, no parity; 1 stop bit, 8 data bits
+
+    UBRRH = 0x00;
+    UBRRL = 0x40;
+}
 ```
 
 #### USART Transmission
 
 ```flow
 st=>start: Begin
-cond=>condition: Has UDRE been set to 1
-op=>operation: Write the character to UDR for transmission
+cond=>condition: Has UDRE flag set
+op=>operation: Load UDR register with data byte for transmission
 e=>end: End
 
 st->cond
@@ -224,15 +235,116 @@ cond(no)->cond
 cond(yes)->op->e
 ```
 
+```C
+void USART_transmit(unsigned char data){
+	while((UCSRA & 0x20)==0x00){
+		;
+	}
+
+	UDR = data;
+}
+```
+
 #### USART Reception
 
 ```flow
 st=>start: Begin
-cond=>condition: Has UXC been set to 1
-op=>operation: Read the received character from UDR
+cond=>condition: Has RXC flag set
+op=>operation: Retrieve received data from UDR register
 e=>end: End
 
 st->cond
 cond(no)->cond
 cond(yes)->op->e
+```
+
+```C
+unsigned char USART_receive(void){
+	while((UCSRA & 0x80) == 0x00){
+		;
+	}
+	unsigned char data = UDR;
+	return data;
+}
+```
+
+## 2-4 Serial Peripheral Interface
+
+The serial peripheral interface allows **high-speed synchronous data transfer** between the ATmega16 and peripheral devices or between several AVR devices. And there are **3 wires** in SPI.
+
+### SPI Operation
+
+<div align = center><img height = 400 src = "../assets/ch2-6.png"></div>
+
+```flow
+st=>start: Begin
+op1=>operation: Enable shift by taking low to SS
+op2=>operation: Initialize spi by setting SPCR
+op3=>operation: Send system clock through SCK 
+op4=>operation: Transmit bits
+cond=>condition: Has clock pulses > 8
+op5=>operation: Send SPIF to both devices
+e=>end: End
+
+st->op1->op2->op3->op4->cond
+cond(no)->op4
+cond(yes)->op5->e
+```
+
+### SPI Registers
+
+#### SPI Control Register (SPCR)
+
+<div align = center><img height = 150 src = "../assets/ch2-7.png"></div>
+
+| Bit Number | Register Bit |   Register Bit Name   |                                Function                                |
+| :--------: | :----------: | :-------------------: | :--------------------------------------------------------------------: |
+|     7      |     SPIE     |                       |
+|     6      |     SPE      |      SPI Enable       |              1 to turn on the system and 0 to turn it off              |
+|     5      |     DORD     |      Data Order       |              1 to send LSB first and 0 to send MSB first               |
+|     4      |     MSTR     |  Master/Slave Select  |                      1 for master and 0 for slave                      |
+|     3      |     CPOL     |    Clock Polarity     |         1 for idle logic high of SCK and 0 for idle logic low          |
+|     2      |     CPHA     |      Clock Phase      | if data will be sampled on leading (0) or trailing (1) edge of the SCK |
+|    1:0     |    SPR1:0    | SPI Clock Rate Select |                    used to set the division factor                     |
+
+#### SPI Status Register (SPSR)
+
+<div align = center><img height = 150 src = "../assets/ch2-8.png"></div>
+
+| Bit Number | Register Bit |   Register Bit Name   |            Function            |
+| :--------: | :----------: | :-------------------: | :----------------------------: |
+|     7      |     SPIF     |  SPI Interrupt Flag   | set when transmission finished |
+|     6      |     WCOL     |   Writing Collision   |                                |
+|    5:1     |   Reserved   |                       |
+|     0      |    SPI2X     | SPI Clock Rate Select |     set the SCK frequency      |
+
+#### SPI Data Register (SPDR)
+
+<div align = center><img height = 150 src = "../assets/ch2-9.png"></div>
+
+Writing a data byte to the SPDR initiates SPI transmission
+
+### Coding with SPI
+
+```C
+void SPI_init(unsigned char control){
+	DDRB = 0xA0; // SCK(PB7), MOSI(PB5) for output, others to input
+	SPCR = 0x53; // SPIE:0, SPE:1, DORD:0, MSTR:1, CPOL:0, CPHA:0, SPR:1, SPR0:1
+}
+
+void SPI_write(unsigned char byte){
+	SPDR = byte;
+	while(!(SPSR & 0x80)){
+		;
+	}
+}
+
+unsigned char SPI_read(void){
+	while(!(SPSR & 0x80)){
+		;
+	}
+
+	unsigned char data = SPDR;
+	return data;
+}
 ```
