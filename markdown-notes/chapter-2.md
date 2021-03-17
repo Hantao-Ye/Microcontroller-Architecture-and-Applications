@@ -311,18 +311,33 @@ cond(yes)->op5->e
 
 <div align = center><img height = 150 src = "../assets/ch2-8.png"></div>
 
-| Bit Number | Register Bit |   Register Bit Name   |            Function            |
-| :--------: | :----------: | :-------------------: | :----------------------------: |
-|     7      |     SPIF     |  SPI Interrupt Flag   | set when transmission finished |
-|     6      |     WCOL     |   Writing Collision   |                                |
-|    5:1     |   Reserved   |                       |
-|     0      |    SPI2X     | SPI Clock Rate Select |     set the SCK frequency      |
+| Bit Number | Register Bit | Register Bit Name  |            Function            |
+| :--------: | :----------: | :----------------: | :----------------------------: |
+|     7      |     SPIF     | SPI Interrupt Flag | set when transmission finished |
+|     6      |     WCOL     | Writing Collision  |                                |
+|    5:1     |   Reserved   |                    |
+|     0      |    SPI2X     |  Double SPI Speed  |     set the SCK frequency      |
 
 #### SPI Data Register (SPDR)
 
 <div align = center><img height = 150 src = "../assets/ch2-9.png"></div>
 
 Writing a data byte to the SPDR initiates SPI transmission
+
+#### SCK Frequency
+
+The SPR 1:0 bits and the SPI2X bit are used to set the division factor
+
+| SPI2X | SPR1  | SPR0  |    SCK Frequency     |
+| :---: | :---: | :---: | :------------------: |
+|   0   |   0   |   0   | $\frac{1}{4}f_{OSC}$ |
+|   0   |   0   |   1   | $\frac{1}{16}f_{OSC}$ |
+|   0   |   1   |   0   | $\frac{1}{64}f_{OSC}$ |
+|   0   |   1   |   1   | $\frac{1}{128}f_{OSC}$ |
+|   1   |   0   |   0   | $\frac{1}{2}f_{OSC}$ |
+|   1   |   0   |   1   | $\frac{1}{8}f_{OSC}$ |
+|   1   |   1   |   0   | $\frac{1}{32}f_{OSC}$ |
+|   1   |   1   |   1   | $\frac{1}{64}f_{OSC}$ |
 
 ### Coding with SPI
 
@@ -348,3 +363,17 @@ unsigned char SPI_read(void){
 	return data;
 }
 ```
+
+## 2-5 Two-Wire Serial Interface
+
+The TWI subsystem allows the system designer to network a number of related devices  together into a system using a **two-wire** interconnecting scheme. 
+
+The TWI allows a maximum of **128 devices** to be connected together. Each device has its own unique address and may both transmit and receive over the two-wire bus at frequencies up to **400 kHz**. 
+
+### TWI Bus
+
+<div align = center><img height = 300 src = "../assets/ch2-10.png"></div>
+
+The TWI protocol allows the systems designer to interconnect up to 128 different devices using only two bi-directional bus lines, one for clock (**SCL**) and one for data (**SCA**)
+
+The only external hardware needed to implement the bus is as single pull-up resistor for each of the TWI bus lines.
