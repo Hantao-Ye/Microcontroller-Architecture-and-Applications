@@ -112,3 +112,110 @@ A parallel converter uses a large number of comparators and circuity to simultan
 - advantage: the quickest conversion time
 - disadvantage: the cost involved in building the circuity
 
+## 3-3 ATMEL ATmega16 ADC System
+
+ATmega16 is equipped with a flexible and powerful ADC system, which has the following features
+
+- 10 bit resolution
+- $\pm2$ LSB absolute accuracy
+- 13 ADC clock rate cycle conversion time
+- 8 multiplexed single-ended input channels
+- selectable right or left result justification
+- 0 to $V_{cc}$ ADC input voltage range
+
+where the resolution is
+
+$$
+\text{resolution} = (V_{RH}-V_{RL})/2^b
+$$
+
+- $V_{RH}$: ADC high reference voltage
+- $V_{RL}$: ADC low reference voltage
+  
+<div align = center><img height = 800 src = "../assets/ch3-9.png"></div>
+
+### Registers
+
+#### ADC Multiplexer Selection Register (ADMUX)
+
+<div align = center><img height = 150 src = "../assets/ch3-10.png"></div>
+
+| Bit Number | Register Bit |         Register Bit Name          |                         Function                          |
+| :--------: | :----------: | :--------------------------------: | :-------------------------------------------------------: |
+|    7:6     |   REFS1:0    |      Reference Voltage Source      | Determine the reference voltage source for the ADC system |
+|     5      |    ADLAR     |       ADC Left Adjust Result       |       1 for left justification and 0 for right one        |
+|    4:0     |   MUX 4:0    | ADC Multiplexer Selection Register |          Select the analog input for conversion           |
+
+The bits of REFS may be set to the following values
+
+- REFS[1:0]=00: AREF used for ADC voltage reference
+- REFS[1:0]=01: AVCC with external capacitor at the AREF pin
+- REFS[1:0]=10: reversed
+- REFS[1:0]=11: internal 2.56V DC voltage reference with an external capacitor at the AREF pin
+
+#### ADC Control and Status Register A (ADCSRA)
+
+<div align = center><img height = 150 src = "../assets/ch3-11.png"></div>
+
+| Bit Number | Register Bit |    Register Bit Name    |                   Function                   |
+| :--------: | :----------: | :---------------------: | :------------------------------------------: |
+|     7      |     ADEN     |       ADC Enable        | Enable/Disable the ADC system by setting 1/0 |
+|     6      |     ADSC     |  ADC Start Conversion   |         Initiate ADC by setting to 1         |
+|     5      |    ADATE     | ADC Auto Trigger Enable |      Set 1 to enable auto triggering in ADC       |
+|     4      |     ADIF     |   ADC Interrupt Flag    |      Set to 1 when the ADC is complete       |
+|     3      |     ADIE     |  ADC Interrupt Enable   | Set to 1 to enable the interrupt of the ADC  |
+|    2:0     |   ADPS2:0    |  ADC Prescaler Select   |      Use to set the ADC clock frequency      |
+
+- ADPS[2:0]=000: devision factor 2
+- ADPS[2:0]=001: devision factor 2
+- ADPS[2:0]=010: devision factor 4
+- ADPS[2:0]=011: devision factor 8
+- ADPS[2:0]=100: devision factor 16
+- ADPS[2:0]=101: devision factor 32
+- ADPS[2:0]=110: devision factor 64
+- ADPS[2:0]=111: devision factor 128
+
+#### ADC Data Register (ADCH and ADCL)
+
+<div align = center><img height = 440 src = "../assets/ch3-12.png"></div>
+
+## 3-4 Programming the ADC
+
+### Initiate ADC
+
+```C
+void InitADC(void){
+    ADMUX = 0x00;
+    ADCSRA = 0xC3; // 0b 1100 0011
+
+    while(!(ADCSRA & 0x10)) // check is conversion is ready
+        ;
+    
+    ADCSRA |= 0x10; // clear the conversion ready flag
+}
+```
+
+### Read ADC
+
+```C
+unsigned int ReadADC(unsigned char channel){
+    unsigned int binary_weighted_voltage
+    unsigned int binary_weighted_voltage_low;
+    unsigned int binary_weighted_voltage_high;
+
+    ADMUX = channel;
+    ADCSRA |= 0x43; // 0b 0100 0011
+
+    while(!(ADCSRA & 0x10))
+        ;
+
+    ADCSRA |= 0x10;
+
+    binary_weighted_voltage_low = ADCL;
+    binary_weighted_voltage_high = ((unsigned int)(ADCH << 8));
+
+    binary_weighted_voltage = binary_weighted_voltage_low | binary_weighted_voltage_high;
+
+    return binary_weighted_voltage;
+}
+```
