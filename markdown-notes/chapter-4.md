@@ -67,7 +67,7 @@ void int0_Init(void){
     asm("SEI");     // Enable global interrupt
 }
 
-void int0_ISR(void){
+void ISR(INT0_vect){
     /**
      * Insert interrupt specific actions here
      */
