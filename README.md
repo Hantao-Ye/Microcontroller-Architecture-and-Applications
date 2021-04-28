@@ -8,9 +8,9 @@
 
 以下为PDF版本的合集笔记下载地址，markdown/html版本请自行clone阅读
 
-| Read In  |                                           PDF                                            |
-| :------: | :--------------------------------------------------------------------------------------: |
-| 下载地址 | [unfinished](https://github.com/Hantao-Ye/Microcontroller-Architecture-and-Applications) |
+| Read In  |                                                          PDF                                                           |
+| :------: | :--------------------------------------------------------------------------------------------------------------------: |
+| 下载地址 | [click me](https://github.com/Hantao-Ye/Microcontroller-Architecture-and-Applications/blob/main/pdf-notes/Overall.pdf) |
 
 如果遇到下载速度慢，使用以下方法(3选1)
 
