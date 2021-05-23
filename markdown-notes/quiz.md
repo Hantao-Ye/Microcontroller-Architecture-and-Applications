@@ -67,7 +67,7 @@ Q2: RS232 Communication Protocol is a _____ communication
 A: serial
 
 Q3: What is the voltage levels of RS232 to logic 1 and 0
-A: logic 1: [−15,−3], logic 0: [3,15]
+A: logic 1: $[-15,-3]$, logic 0: $[3,15]$
 
 Q4: There are ____ main tasks when using the serial port
 A: 3, initialization, transmission and reception
@@ -136,4 +136,74 @@ A: 2, SDA and SCK
 Q21: Write a program of USART initialization, transmission and reception.
 
 Q22: Write a program of SPI initialization, transmission and reception.
- 
+
+## Chapter 3
+
+Q1: ADC is used to convert _____ signals into _____ signals
+A: analog, digital
+
+Q2: What is the sampling theory?
+A: the sampling rate must satisfy the Nyquist sampling rate, which is $\text{Nyquist Rate}=2\times F_{max}$
+
+Q3: What is the definition of resolution?
+A: Resolution is the "distance" between two adjacent quantization levels, which is $\text{resolution} = \text{range}/2^n$
+
+Q4: How does the **input transducer** help in the ADC process?
+A: The input transducer converts physical signals into electrical signals, which is **scaled and shifted** to map to the input of ADC
+
+Q5: An amplifier provides an output voltage of $0\;V$ and $-2.50\;V$ of output voltage. Please calculate the required values of K and B for this transducer, so it may be interfaced to a microcontroller's ADC system (usually 5 and 0)
+A: 
+$$
+\begin{cases}
+    5.0  = 0\times K +B\\[2ex]
+    0.0 = -2.50\times K+B
+\end{cases}
+$$
+
+Q6: How many important processes associated with the ADC?
+A: 3, sampling, quantization and encoding
+
+Q7: How many different types of technologies are used in ADC?
+A: 4, successive approximation conversion, integration conversion, counter-based conversion and parallel conversion
+
+Q8: How many ADC channels in ATmega16?
+A: 8
+
+Q9: The resolution of ADC in ATmega16 is
+A: 10 bit
+
+Q10: The port of ADC in ATmega16 is
+A: PORT A
+
+Q11: The default reference voltage $V_{ref}$ is
+A: $5\;V$
+
+Q12: What is the absolute accuracy of ADC in ATmega16?
+A: $\pm2\text{LSB}$
+
+Q13: What is the number of the clock cycles in a single ADC conversion?
+A: 13
+
+Q14: How many groups of relevant ADC registers?
+A: 4, ADCMUX (ADC multiplexer selection register), ADCCSA (ADC control and status register), ADCH/L (ADC data register), SFIOR (special function I/O register)
+
+Q15: How many functions are needed to operate the ATmega16 ADC system?
+A: 2, ADC_Init and ADC_Read
+
+Q16: How to configure the register to use reference voltage for ADC
+A: 
+```C
+    ADMUX = (1<<REFS0)|channel; // AVCC
+    ADMUX = channel;            // internal AREF
+```
+
+Q17: Which flag will be set to 1 when conversion is completed?
+A: ADIF
+
+Q18: How many registers in the register SFIOR are used to configure the auto-triggering event of ADC
+A: 3, ADTS2:0
+
+Q19: How many flags in register ADCSRA specify ADC prescaler selection?
+A: 3, ADPS2:0
+
+Q20: Please write a program of ADC initialization and reading
