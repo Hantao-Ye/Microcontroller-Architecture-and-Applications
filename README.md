@@ -6,11 +6,17 @@
 
 ## 使用说明
 
-以下为PDF版本的合集笔记下载地址，markdown/html版本请自行clone阅读
+以下为PDF版本的**合集笔记**下载地址，markdown/html版本请自行clone阅读
 
 | Read In  |                                                               PDF                                                                |
 | :------: | :------------------------------------------------------------------------------------------------------------------------------: |
-| 下载地址 | [click me](https://raw.githubusercontent.com/Hantao-Ye/Microcontroller-Architecture-and-Applications/main/pdf-notes/Overall.pdf) |
+| 下载地址 | [click me(finished)](https://raw.githubusercontent.com/Hantao-Ye/Microcontroller-Architecture-and-Applications/main/pdf-notes/Overall.pdf) |
+
+以下为PDF版本的**练习题合集**下载地址，markdown/html版本请自行clone阅读
+
+| Read In  |                                                               PDF                                                                |
+| :------: | :------------------------------------------------------------------------------------------------------------------------------: |
+| 下载地址 | [click me(chapter 5 and 6 unfinished)](https://raw.githubusercontent.com/Hantao-Ye/Microcontroller-Architecture-and-Applications/main/pdf-notes/quiz.pdf) |
 
 如果遇到下载速度慢，使用以下方法(3选1)
 
