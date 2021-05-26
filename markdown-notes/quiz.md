@@ -279,3 +279,54 @@ GIFR
 ### 4-16 Draw the circuit of ATmega16 with switches and LED, code a program such the INT0 handles interrupt in any voltage change, INT1 in falling edge.
 
 ## Chapter 5
+
+### 5-1 How many Timers/Counters in ATmega16?
+3, Timer 0/2 are 8 bit timers and Timer 1 is the 16-bit timer
+
+### 5-2 What functions can a timer have?
+Mostly counting events, comparing output, input capture and producing PWM signals
+
+### 5-3 Timing-related terminology include
+Frequency, period and duty cycle
+
+### 5-4 What is the definition of the duty cycle?
+A duty cycle or power cycle is the fraction of one period in which a signal or system is active
+
+### 5-5 How many interrupt sources are in Timer 0/2
+2, TOVx(Timer Overflow Flag) and OCFx(Output Compare Flag)
+
+### 5-6 The maximum frequency of Fast PWM is _____ that of the Phase Correct PWM mode
+twice
+
+### 5-7 How many groups of registers are in Timer 0?
+4, TCCR0(Timer/Counter Control Register), TIMSK(Timer Interrupt Mask Register)/TIFR(Timer Interrupt Flag Register), TCNT0(Timer/Counter Register) and OCR0(Output Compare Register)
+
+### 5-8 TCCRx is used to
+configure the timer operations
+
+### 5-9 TIMSK is used to 
+enable and disable the timer interrupt
+
+### 5-10 TIFR is used to
+monitor the timer interrupt
+
+### 5-11 TCNTx is used to 
+store the current value of the timer
+
+### 5-12 OCRx is used to
+store the preset values for output compares
+
+### 5-13 The interrupt sources in Timer 1 contain
+4, ICF1, OCF1A, OCF1B and TOV1
+
+### 5-14 How many groups of registers are in Timer 1?
+5, TCCR1A/B(Timer/Counter Control Register), TIMSK(Timer Interrupt Mask Register)/TIFR(Timer Interrupt Flag Register), TCNT1(Timer/Counter Register) ,OCR1A/B(Output Compare Register) and ICR1(Input Capture Register)
+
+### 5-15 WGM bits in TCCRx register is used for
+Waveform generation mode
+
+### 5-16 COMx bits in TCCRx register is used for
+Compare match output mode
+
+### 5-17 CSx bits in TCCRx register is used for
+Clock select

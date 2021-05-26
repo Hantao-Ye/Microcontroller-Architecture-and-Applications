@@ -16,7 +16,7 @@
 
 | Read In  |                                                               PDF                                                                |
 | :------: | :------------------------------------------------------------------------------------------------------------------------------: |
-| 下载地址 | [click me(chapter 5 and 6 unfinished)](https://raw.githubusercontent.com/Hantao-Ye/Microcontroller-Architecture-and-Applications/main/pdf-notes/quiz.pdf) |
+| 下载地址 | [click me(chapter 6 unfinished)](https://raw.githubusercontent.com/Hantao-Ye/Microcontroller-Architecture-and-Applications/main/pdf-notes/quiz.pdf) |
 
 如果遇到下载速度慢，使用以下方法(3选1)
 
