@@ -329,7 +329,7 @@ The following table contains the equations for calculating baud rate register se
 |     3      |     TXEN     |            Transmitter Enable            |                             1 to enable USART transmitter                              |
 |     2      |    UCSZ2     |              Character Size              |        bit UCSZ2 to decide character size, combined with bits 2 and 1 in UCSRC         |
 |     1      |     RXB8     |            Receive Data Bit 8            |                       Rx extra data bit for 9-bit character size                       |
-|     0      |     MPCM     |    Multi-processor Communication Mode    |                       Tx extra data bit for 9-bit character size                       |
+|     0      |     TXB8     |    Transmit Data Bit 8     |                       Tx extra data bit for 9-bit character size                       |
 
 #### USART Control and Status Register C (UCSRC)
 
