@@ -226,10 +226,10 @@ ADIF
 ### 4-2 How many methods to respond to the interrupt?
 2, polling or register an interrupt
 
-### 4-3 What do the internal interrupt include?
+### 4-3 What do the internal interrupt of ATmega16 include?
 Timer/counter overflowed, ADC conversion completed, serial transfer completed and analog comparator
 
-### 4-4 What do the internal interrupt of ATmega16 include?
+### 4-4 What do the external interrupt of ATmega16 include?
 INT0, INT1 and INT2
 
 ### 4-5 How to trigger the external interrupt?
